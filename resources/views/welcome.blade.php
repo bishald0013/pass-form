@@ -22,10 +22,18 @@
 </head>
 
 <body class="bg-light d-flex justify-content-center align-items-center vh-100">
+    @php
+        $step = session('step', $step ?? 1); // Default to step 1 if not provided
+        if ($errors->has('event_name') || $errors->has('subHeader')) {
+            $step = 2;
+        }
+    @endphp
     @if ($step == 1)
         <x-create-pass />
     @elseif ($step == 2)
         <x-event-pass-form />
+    @elseif ($step == 3)
+        <x-media-upload-form />
     @endif
 </body>
 
