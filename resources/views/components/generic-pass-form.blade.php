@@ -1,3 +1,9 @@
-<div>
-    <!-- Breathing in, I calm body and mind. Breathing out, I smile. - Thich Nhat Hanh -->
+@props(['form_data'])
+<div class="container">
+    <div class="card">
+        <div class="card-header">Generic Pass</div>
+        <div class="card-body">
+
+        </div>
+    </div>
 </div>

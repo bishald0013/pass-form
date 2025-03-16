@@ -27,13 +27,32 @@
         if ($errors->has('event_name') || $errors->has('subHeader')) {
             $step = 2;
         }
+        $form_data = session('form_data');
+        $passType = session('passType');
     @endphp
     @if ($step == 1)
-        <x-create-pass />
-    @elseif ($step == 2)
-        <x-event-pass-form />
+        <x-create-pass :form_data="$form_data" />
+    @elseif ($step == 2 && $passType == 'Event Pass')
+        <x-event-pass-form :form_data="$form_data" />
+        <form method="POST" action="{{ route('step-previous') }}">
+            @csrf
+            <input type="hidden" name="step" value="{{ $step - 1 }}">
+            <button type="submit" class="btn btn-secondary">Previous</button>
+        </form>
+    @elseif ($step == 2 && $passType == 'Generic Pass')
+        <x-generic-pass-form :form_data="$form_data" />
+        <form method="POST" action="{{ route('step-previous') }}">
+            @csrf
+            <input type="hidden" name="step" value="{{ $step - 1 }}">
+            <button type="submit" class="btn btn-secondary">Previous</button>
+        </form>
     @elseif ($step == 3)
         <x-media-upload-form />
+        <form method="POST" action="{{ route('step-previous') }}">
+            @csrf
+            <input type="hidden" name="step" value="{{ $step - 1 }}">
+            <button type="submit" class="btn btn-secondary">Previous</button>
+        </form>
     @endif
 </body>
 

@@ -1,3 +1,5 @@
+@props(['form_data'])
+
 <form action="{{ route('step-one') }}" method="POST" enctype="multipart/form-data" class="needs-validation">
     @csrf
     <div class="container w-50">
@@ -17,7 +19,8 @@
                     <div class="col-6">
                         <label for="organizer" class="form-label">Organizer</label>
                         <input type="text" class="form-control @error('organizer') is-invalid @enderror"
-                            name="organizer" value="{{ old('organizer', $organizer ?? '') }}" id="organizer">
+                            name="organizer" value="{{ old('organizer', $form_data['step_one']['organizer'] ?? '') }}"
+                            id="organizer">
                         @error('organizer')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -28,7 +31,7 @@
                             aria-label="Default select example">
                             <option selected>Open this select menu</option>
                             @foreach ($passType as $key => $value)
-                                <option value="{{ $key }}" {{ old('passType') == $key ? 'selected' : '' }}>
+                                <option value="{{ $value }}" {{ old('passType') == $value ? 'selected' : '' }}>
                                     {{ $value }}</option>
                             @endforeach
                         </select>
@@ -39,7 +42,8 @@
                     <div class="col-6 mt-2">
                         <label for="startDate" class="form-label">Start Date</label>
                         <input type="date" class="form-control @error('startDate') is-invalid @enderror"
-                            name="startDate" id="startDate" value="{{ old('startDate') }}">
+                            name="startDate" id="startDate"
+                            value="{{ old('startDate', $form_data['step_one']['startDate'] ?? '') }}">
                         @error('startDate')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -47,7 +51,7 @@
                     <div class="col-6 mt-2">
                         <label for="endDate" class="form-label">End Date</label>
                         <input type="date" class="form-control @error('endDate') is-invalid @enderror" name="endDate"
-                            id="endDate" value="{{ old('endDate') }}">
+                            id="endDate" value="{{ old('endDate', $form_data['step_one']['startDate'] ?? '') }}">
                         @error('endDate')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -78,7 +82,8 @@
                     <div class="col-12 mt-2">
                         <label for="location" class="form-label">Location</label>
                         <input type="text" class="form-control @error('location') is-invalid @enderror"
-                            name="location" placeholder="Event Location" id="location" value="{{ old('location') }}">
+                            name="location" placeholder="Event Location" id="location"
+                            value="{{ old('location', $form_data['step_one']['location'] ?? '') }}">
                         @error('location')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
